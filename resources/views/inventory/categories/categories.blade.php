@@ -27,15 +27,7 @@
         @foreach ($categories as $category)
         <div class="p-3 rounded border-gray-500 border w-full ">
             <a href="{{ route('categories.show', $category->id) }}" class="cursor-pointer flex flex-col md:flex-row items-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 flex-shrink-0 md:w-20 md:h-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M3 5h6v14h-6z" />
-                    <path d="M12 9h10v7h-10z" />
-                    <path d="M14 19h6" />
-                    <path d="M17 16v3" />
-                    <path d="M6 13v.01" />
-                    <path d="M6 16v.01" />
-                </svg>
+                <svg  xmlns="http://www.w3.org/2000/svg"  class="w-20 h-20 flex-shrink-0 md:w-20 md:h-20" viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-archive"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M2 3m0 2a2 2 0 0 1 2 -2h16a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-16a2 2 0 0 1 -2 -2z" /><path d="M19 9c.513 0 .936 .463 .993 1.06l.007 .14v7.2c0 1.917 -1.249 3.484 -2.824 3.594l-.176 .006h-10c-1.598 0 -2.904 -1.499 -2.995 -3.388l-.005 -.212v-7.2c0 -.663 .448 -1.2 1 -1.2h14zm-5 2h-4l-.117 .007a1 1 0 0 0 0 1.986l.117 .007h4l.117 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z" /></svg>
                 <h3 class="text-lg md:text-xl">{{ $category->name }}</h3>
             </a>
             <div class="flex flex-col md:flex-row mt-5 md:mt-3  justify-between">

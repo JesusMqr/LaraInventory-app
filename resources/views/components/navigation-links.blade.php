@@ -3,7 +3,15 @@
         {{ __('Dashboard') }}
     </x-nav-link>
     <x-nav-link :href="route('categories')" :active="request()->routeIs(['categories','categories.*','products','products.*'])">
-        {{ __('Inventory') }}
+        {{ __('Inventario') }}
     </x-nav-link>
-
+    <x-nav-link :href="route('stock_refill.index')" :active="request()->routeIs(['stock_refill','stock_refill.*'])">
+        {{ __('Solicitudes stock') }}
+    </x-nav-link>
+    <x-nav-link :href="route('records')" :active="request()->routeIs(['records','records.*'])">
+        {{ __('Registros') }}
+    </x-nav-link>
+    <x-nav-link :href="route('users')" :active="request()->routeIs(['users','users.*'])">
+        {{ __('Usuario') }}
+    </x-nav-link>
 </div>

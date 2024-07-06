@@ -17,6 +17,7 @@ class ProductController extends Controller
     public function store(Request $request){
         $request->validate([
             'name'=>'required|string',
+            'image_url'=>'required|string',
             'description'=>'required|string',
             'price'=>'required|numeric',
             'id_category'=>'required|numeric',
@@ -26,6 +27,7 @@ class ProductController extends Controller
 
         Product::create([
             'name'=>$request->name,
+            'image_url'=>$request->image_url,
             'description'=>$request->description,
             'price'=>$request->price,
             'id_category'=>$request->id_category,
@@ -44,6 +46,7 @@ class ProductController extends Controller
     public function update( $id,Request $request){
         $request->validate([
             'name'=>'required|string',
+            'image_url'=>'required|string',
             'description'=>'required|string',
             'price'=>'required|numeric',
             'id_category'=>'required|numeric',
@@ -54,6 +57,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product->update([
             'name'=>$request->name,
+            'image_url'=>$request->image_url,
             'description'=>$request->description,
             'price'=>$request->price,
             'id_category'=>$request->id_category,

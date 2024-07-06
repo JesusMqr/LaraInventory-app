@@ -1,6 +1,6 @@
 @extends('layouts.web')
 @section('header')
-    {{ $header = "Categorias" }}
+    {{ $header = "Productos" }}
 @endsection
 
 @section('navigator')
@@ -53,7 +53,7 @@
                 @foreach ($filterProducts as $product )
                 <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
-                        <img class="p-8 rounded-t-lg" src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="product image" />
+                        <img class="p-8 rounded-t-lg" src="{{ $product->image_url }}" alt="product image" />
                     </a>
                     <div class="px-5 pb-5">
                         <a href="#">
@@ -90,7 +90,7 @@
 
             <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
-                    <img class="p-8 rounded-t-lg" src="https://pbs.twimg.com/profile_images/1701878932176351232/AlNU3WTK_400x400.jpg" alt="product image" />
+                    <img class="p-8 rounded-t-lg" src="{{ $product->image_url }}" alt="product image" />
                 </a>
                 <div class="px-5 pb-5">
                     <a href="#">
@@ -102,7 +102,7 @@
                             <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{{ $product->stock }}</span>
                             </div>
                             <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        href="">Añadir stock</a>
+                        href="{{ route('stock_refill.create',["product_id"=>$product->id]) }}">Añadir stock</a>
                     </div>
                     <div class="pb-5">
                         <span class="text-3xl font-bold text-gray-900 dark:text-white">S/ {{ $product->price }}</span>
@@ -127,7 +127,9 @@
         </div>
         
         @else 
-            <h2>No hay productos en esta cateogri</h2>
+            <div class="text-center py-10">
+                <h2>No hay productos en esta categoria</h2>
+            </div>
         @endif
         
     </div>
