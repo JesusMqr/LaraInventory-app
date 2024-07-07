@@ -69,6 +69,7 @@
                                 @endswitch
                             </td>
                             <td class="px-6 py-4">
+                                @hasanyrole('admin|supervisor')
                                 <div class="flex">
                                     @if ($request->status == "pendiente")
                                 <form action="{{route('stock_refill.aprove',['request'=>$request])}}" method="POST">
@@ -89,6 +90,14 @@
 
                                 @endif
                                 </div>
+                                @else
+                                
+                                @if ($request->status =="en proceso")
+                                <h2>La solicitud ha sido aprovada, el supervisor confirmara la recepcion de los productos</h2>
+                                @else 
+                                <h2>Espere a que un supervisor revise la solicitud</h2>
+                                @endif
+                                @endhasanyrole
                                 
                                 
                             </td>

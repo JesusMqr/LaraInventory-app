@@ -9,9 +9,11 @@
     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l4 4" /><path d="M5 12l4 -4" /></svg>
     Volver
     </a>
+
     <a  href="{{ route('products.create',['id_category' => $category->id]) }}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>Crear producto
     </a>
+
 @endsection
 
 @section('message')
@@ -71,6 +73,7 @@
                             <span class="text-3xl font-bold text-gray-900 dark:text-white">S/ {{ $product->price }}</span>
                             
                         </div>
+                        @hasanyrole('admin|supervisor')
                         <div class="flex  justify-between">
                             <form action="{{ route('products.destroy',$product) }}" method="POST" > 
                                 @csrf
@@ -81,6 +84,7 @@
                             <a href="{{ route('products.edit',$product->id) }}" 
                                 class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Editar</a>
                         </div>
+                        @endhasanyrole
                     </div>
                 </div>
                 @endforeach
@@ -89,11 +93,11 @@
             
 
             <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
+                <a >
                     <img class="p-8 rounded-t-lg" src="{{ $product->image_url }}" alt="product image" />
                 </a>
                 <div class="px-5 pb-5">
-                    <a href="#">
+                    <a >
                         <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{{$product->name}}</h5>
                     </a>
                     <div class="flex items-center flex-wrap gap-5 mt-2.5 mb-5">
@@ -108,6 +112,7 @@
                         <span class="text-3xl font-bold text-gray-900 dark:text-white">S/ {{ $product->price }}</span>
                         
                     </div>
+                    @hasanyrole('admin|supervisor')
                     <div class="flex  justify-between">
                         <form action="{{ route('products.destroy',$product) }}" method="POST" > 
                             @csrf
@@ -120,6 +125,7 @@
                         
                         
                     </div>
+                    @endhasanyrole
                 </div>
             </div>
             @endforeach

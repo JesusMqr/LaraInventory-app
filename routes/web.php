@@ -3,6 +3,9 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RecordController;
+use App\Http\Controllers\StockRefillController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -37,9 +40,32 @@ Route::prefix('inventory')->middleware(['auth', 'verified'])->group(function () 
         Route::put('/update/{id}',[ProductController::class,'update'])->name('products.update');
         Route::delete('/destroy/{product}',[ProductController::class,'destroy'])->name('products.destroy');
     });
+});
 
+Route::prefix('stock_refill')->middleware(['auth','verified'])->group(function(){
+    Route::get('/',[StockRefillController::class,'index'])->name('stock_refill.index');
+    Route::get('/create/{product_id}', [StockRefillController::class, 'create'])->name('stock_refill.create');
+    Route::post('/store',[StockRefillController::class, 'store'])->name('stock_refill.store');
+    Route::post('/{request}/aprove',[StockRefillController::class,'aprove'])->name('stock_refill.aprove');
+    Route::post('/{request}/reject',[StockRefillController::class,'reject'])->name('stock_refill.reject');
+    Route::post('/{request}/complete',[StockRefillController::class,'complete'])->name('stock_refill.complete');
 
 });
+
+Route::prefix('records')->middleware(['auth','verified'])->group(function(){
+    Route::view('/', 'records.records')->name('records');
+    Route::get('/refill',[RecordController::class,'refillRecords'])->name('records.refill');
+});
+
+Route::prefix('users')->middleware(['auth','verified','role:admin'])->group(function(){
+    Route::get('/',[UserController::class,'index'])->name('users');
+    Route::get('/create',[UserController::class,'create'])->name('users.create');
+    Route::post('register',[UserController::class,'store'])->name('users.register');
+    Route::get('/edit/{user}',[UserController::class,'edit'])->name('users.edit');;
+    Route::put('/update/{id}',[UserController::class,'update'])->name('users.update');
+    Route::delete('/destroy/{user}',[UserController::class,'destroy'])->name('users.destroy');
+});
+
 
 
 
