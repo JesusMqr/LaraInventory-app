@@ -19,6 +19,4 @@
             <h3>Registros de ventas (Proximamente)</h3>
         </a>
     </div>
-    
-
 @endsection
