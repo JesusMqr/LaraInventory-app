@@ -19,6 +19,17 @@ class PasswordController extends Controller
             'current_password' => ['required', 'current_password'],
             'password' => ['required', Password::defaults(), 'confirmed'],
         ]);
+        $protectedEmails = [
+            'admin@correo.es', 
+            'supervisor@correo.es',
+            'user@correo.es',
+        ];
+
+
+        if (in_array($request->user()->email, $protectedEmails)) {
+
+            return back()->withErrors(['error' => 'Este usuario esta protegido asi que no puedes editarlo.']);
+        }
 
         $request->user()->update([
             'password' => Hash::make($validated['password']),

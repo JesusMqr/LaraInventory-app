@@ -19,7 +19,6 @@
 
 @section('content')
 
-    <p>categoria {{ $product->id_category }}</p>
     <form action="{{ route('products.update',$product->id) }}" method="POST" >
         @csrf
         @method('PUT')

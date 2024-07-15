@@ -23,6 +23,15 @@ class StockRefillController extends Controller
             'quantity'=>'required|numeric',
         ]);
 
+        $existingRequest = StockRefill::where('product_id', $request->product_id)
+        ->whereIn('status', ['pendiente', 'en proceso'])
+        ->first();
+
+        if ($existingRequest) {
+            // Si existe, redirigir de nuevo con un mensaje de error
+            return redirect()->back()->withErrors(['error' => 'Ya hay una solicitud de este producto, por favor finalize la solicitud antes de crear otra.']);
+        }
+
         $stockRequest = StockRefill::create([
             'product_id'=>$request->product_id,
             'quantity'=>$request->quantity,

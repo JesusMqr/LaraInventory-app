@@ -35,6 +35,17 @@ class UserController extends Controller
         return redirect()->route('users')->with('success','User created successfully');
     }
     public function edit(User $user){
+        $protectedEmails = [
+            'admin@correo.es', 
+            'supervisor@correo.es',
+            'user@correo.es',
+        ];
+
+
+        if (in_array($user->email, $protectedEmails)) {
+
+            return redirect()->route('users')->withErrors(['error' => 'Este usuario esta protegido asi que no puedes editarlo.']);
+        }
         return view('users.edit',compact('user'));
     }
 
@@ -60,7 +71,20 @@ class UserController extends Controller
     }
 
     public function destroy(User $user){
+
+        $protectedEmails = [
+            'admin@correo.es', 
+            'supervisor@correo.es',
+            'user@correo.es',
+        ];
+
+
+        if (in_array($user->email, $protectedEmails)) {
+
+            return redirect()->route('users')->withErrors(['error' => 'Este usuario esta protegido asi que no puedes eliminarlo.']);
+        }
+
         $user->delete();
-        return redirect()->route('users')->with('success','User deleted successfully');
+        return redirect()->route('users')->with('message','Usuario eliminado');
     }
 }

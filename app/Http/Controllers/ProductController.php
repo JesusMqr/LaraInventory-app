@@ -75,4 +75,9 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('categories.show',$category)->with('message','Producto eliminado correctamente');
     }
+
+    public function lowStock(){
+        $products = Product::whereColumn('stock','<=','min_stock')->get();
+        return view('inventory.products.lowStock',compact('products'));
+    }
 }

@@ -16,8 +16,7 @@
 @endsection
 
 @section('content')
-    <form action="{{ route('categories.update',$category->id) }}" method="POST"
-        >
+    <form action="{{ route('categories.update',$category->id) }}" method="POST">
         @csrf
         @method('PUT')
         <div class="pb-5">

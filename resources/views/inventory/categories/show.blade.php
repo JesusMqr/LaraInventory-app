@@ -94,7 +94,7 @@
 
             <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a >
-                    <img class="p-8 rounded-t-lg" src="{{ $product->image_url }}" alt="product image" />
+                    <img class="p-8 rounded-t-lg" src="{{ $product->image_url }}" alt="{{ $product->name }}" />
                 </a>
                 <div class="px-5 pb-5">
                     <a >
@@ -134,7 +134,7 @@
         
         @else 
             <div class="text-center py-10">
-                <h2>No hay productos en esta categoria</h2>
+                <h2 class="text-slate-500">No hay productos en esta categoria</h2>
             </div>
         @endif
         

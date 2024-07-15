@@ -10,8 +10,14 @@ class CategoryController extends Controller
 {
     public function index(){
         $categories = Category::all();
-        return view('inventory.categories.categories',(compact('categories')));
+        return view('inventory.categories.categories',compact('categories'));
     }
+    public function searchCategory(Request $request){
+        $search = $request->search;
+        $categories = Category::where('name','LIKE','%' . $search . '%')->get();
+        return view('inventory.categories.categories',compact('categories'));
+    }
+
     public function show($id){
 
         $category = Category::find($id);

@@ -7,6 +7,7 @@ use App\Http\Controllers\RecordController;
 use App\Http\Controllers\StockRefillController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\Framework\Attributes\Group;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,6 +17,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function(){
+    Route::get('/low_stock',[ProductController::class,'lowStock'])->name('dashboard.lowStock');
+});
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -25,8 +29,9 @@ Route::middleware('auth')->group(function () {
 Route::prefix('inventory')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/',[CategoryController::class,'index'])->name('categories');
     Route::prefix('category')->group(function(){
+        Route::get('/search',[CategoryController::class,'searchCategory'])->name('categories.search');
         Route::get('/show/{id}',[CategoryController::class,'show'])->name('categories.show');
-        Route::get('/show/{id}/search',[CategoryController::class,'searchProducts'])->name('categories.search');
+        Route::get('/show/{id}/search',[CategoryController::class,'searchProducts'])->name('products.search');
         Route::get('/create',[CategoryController::class,'create'])->name('categories.create');
         Route::post('/store',[CategoryController::class,'store'])->name('categories.store');
         Route::delete('/destroy/{category}',[CategoryController::class,'destroy'])->name('categories.destroy');
@@ -55,6 +60,7 @@ Route::prefix('stock_refill')->middleware(['auth','verified'])->group(function()
 Route::prefix('records')->middleware(['auth','verified'])->group(function(){
     Route::view('/', 'records.records')->name('records');
     Route::get('/refill',[RecordController::class,'refillRecords'])->name('records.refill');
+    Route::get('/search_refill',[RecordController::class,'searchRefillRecords'])->name('records.searchRefill');
 });
 
 Route::prefix('users')->middleware(['auth','verified','role:admin'])->group(function(){

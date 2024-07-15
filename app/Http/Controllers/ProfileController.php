@@ -31,6 +31,17 @@ class ProfileController extends Controller
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
+        $protectedEmails = [
+            'admin@correo.es', 
+            'supervisor@correo.es',
+            'user@correo.es',
+        ];
+
+
+        if (in_array($request->user()->email, $protectedEmails)) {
+
+            return back()->withErrors(['error' => 'Este usuario esta protegido asi que no puedes editarlo.']);
+        }
 
         $request->user()->save();
 
@@ -47,7 +58,17 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+        $protectedEmails = [
+            'admin@correo.es', 
+            'supervisor@correo.es',
+            'user@correo.es',
+        ];
 
+
+        if (in_array($request->user()->email, $protectedEmails)) {
+
+            return back()->withErrors(['error' => 'Este usuario esta protegido asi que no puedes eliminarlo.']);
+        }
         Auth::logout();
 
         $user->delete();
